@@ -10,7 +10,6 @@ const row2 = document.createElement("div");
 const row3 = document.createElement("div");
 const row4 = document.createElement("div");
 const row5 = document.createElement("div");
-const button = document.createElement("button");
 const textSystem = document.createElement("p");
 const textSwitch = document.createElement("p");
 
