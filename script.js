@@ -167,16 +167,6 @@ document.addEventListener("keydown", function (event) {
       button[i].classList.add("active");
       button[i].classList.remove("button-color");
     }
-    // if (button[i].innerHTML == "Shift") {
-    //   if (event.code == "ShiftLeft") {
-    //     event.classList.add("active");
-    //     event.classList.remove("button-color");
-    //   }
-    // else {
-    //   button[i].classList.remove("active");
-    //   button[i].classList.add("button-color");
-    // }
-    // }
   }
 });
 
@@ -192,9 +182,17 @@ document.body.addEventListener("keyup", function (event) {
 });
 
 //Virtual keyboard activation with external mouse
-for (let x of button) {
-  x.addEventListener("mousedown", function () {
-    textarea.className = 'focus';
-    textarea.innerHTML += x.innerHTML;
+document.querySelectorAll(".button").forEach(function (element) {
+  element.addEventListener("mousedown", function () {
+    textarea.className = "focus";
+    if (element.textContent.length == 1) {
+      textarea.innerHTML += element.innerHTML;
+    }
+    switch (element.code) {
+      case 'Backspace': 
+        textarea.innerHTML = textarea.innerHTML.slice(0, -1)
+        break;
+
+    }
   });
-}
+});
