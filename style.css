@@ -4,6 +4,7 @@ body {
 }
 
 h1 {
+  margin: 20px 0;
   font-size: 36px;
   font-weight: 500;
   color: #b3658a;
@@ -11,6 +12,11 @@ h1 {
 
 p {
   margin: 5px 0;
+}
+
+textarea {
+  padding: 10px;
+  font-size: 18px;
 }
 
 textarea:focus {
@@ -27,7 +33,7 @@ textarea:focus {
 .keyboard {
   max-width: 100%;
   margin: 20px auto;
-  padding: 10px;
+  padding: 5px;
   background: #ceb9b9;
   border: 3px solid #998080;
   border-radius: 7px;
@@ -56,7 +62,7 @@ textarea:focus {
 }
 
 .key-row3-4-last {
-  flex-grow: 0.78;
+  flex-grow: 0.7;
 }
 
 .key-row5-space {
@@ -69,9 +75,24 @@ textarea:focus {
   font-family: "Roboto", Arial, sans-serif;
   font-size: 22px;
   font-weight: 400;
-  color: #6d0f3c;
-  border: 1px solid #474747;
+  color: #362f32;
+  background: #f9bfda;
+  border: 1.5px solid #cfa9c5;
   border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.button:hover {
+  background: #a7d5df;
+  border-color: #b4dae2;
+}
+
+.button:active, 
+.active {
+  background: #78d8ee;
+  border-color: #78d8ee;
+  border-radius: 50px;
 }
 
 .button-color {
