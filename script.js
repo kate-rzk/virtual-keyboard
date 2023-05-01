@@ -16,10 +16,11 @@ const textSwitch = document.createElement("p");
 function createElementsPage() {
   title.textContent = "RSS Виртуальная клавиатура";
   textSystem.textContent = "Клавиатура создана в операционной системе Linux";
-  textSwitch.textContent = "Для переключения языка комбинация: левыe ctrl + alt";
+  textSwitch.textContent =
+    "Для переключения языка комбинация: левыe ctrl + alt";
 
-  textarea.setAttribute("rows", 10);
-  textarea.setAttribute("cols", 109);
+  textarea.setAttribute("rows", 7);
+  textarea.setAttribute("cols", 78);
 
   article.className = "wrapper";
   section.className = "keyboard";
@@ -137,15 +138,48 @@ function init() {
   document.querySelector("section").childNodes[3].innerHTML = line4;
   document.querySelector("section").childNodes[4].innerHTML = line5;
 
-  row1.lastChild.className = "button key-row1 button-color";
-  row2.firstChild.className = "button key-row2-first button-color";
-  row2.lastChild.className = "button key-row2-last button-color";
-  row3.firstChild.className = "button key-row3-4-first button-color";
-  row3.lastChild.className = "button key-row3-4-last button-color";
-  row4.firstChild.className = "button key-row3-4-first button-color";
-  row4.lastChild.className = "button key-row3-4-last button-color";
-  row4.childNodes[row4.childNodes.length - 2].className = "button button-color";
+  row1.lastChild.className = "button key-row1 button-color button-special";
+  row2.firstChild.className =
+    "button key-row2-first button-color button-special";
+  row2.lastChild.className = "button key-row2-last button-color button-special";
+  row3.firstChild.className =
+    "button key-row3-4-first button-color button-special";
+  row3.lastChild.className =
+    "button key-row3-4-last button-color button-special";
+  row4.firstChild.className =
+    "button key-row3-4-first button-color button-special";
+  row4.lastChild.className =
+    "button key-row3-4-last button-color button-special";
+  row4.childNodes[row4.childNodes.length - 2].className =
+    "button button-color button-special";
   row5.childNodes[3].className = "button key-row5-space";
 }
 
 init();
+
+//Virtual keyboard activation with external keyboard
+const button = document.querySelectorAll(".button");
+
+document.addEventListener("keydown", function (event) {
+  for (let i = 0; i < button.length; i++) {
+    if (button[i].innerHTML == event.key) {
+      button[i].classList.add("active");
+      button[i].classList.remove("button-color");
+    }
+  }
+  textarea.innerHTML += event.key;
+  // if (event.key == "Backspace") {
+  //   event.innerHTML = event.innerHTML.slice(0, -10);
+  // }
+});
+
+document.body.addEventListener("keyup", function (event) {
+  for (let j = 0; j < button.length; j++) {
+    if (button[j].innerHTML == event.key) {
+      button[j].classList.remove("active");
+      if (button[j].matches('button[class$="button-special"]')) {
+        button[j].classList.add("button-color");
+      }
+    }
+  }
+});
