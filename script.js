@@ -161,16 +161,23 @@ init();
 const button = document.querySelectorAll(".button");
 
 document.addEventListener("keydown", function (event) {
+  textarea.focus();
   for (let i = 0; i < button.length; i++) {
     if (button[i].innerHTML == event.key) {
       button[i].classList.add("active");
       button[i].classList.remove("button-color");
     }
+    // if (button[i].innerHTML == "Shift") {
+    //   if (event.code == "ShiftLeft") {
+    //     event.classList.add("active");
+    //     event.classList.remove("button-color");
+    //   }
+    // else {
+    //   button[i].classList.remove("active");
+    //   button[i].classList.add("button-color");
+    // }
+    // }
   }
-  textarea.innerHTML += event.key;
-  // if (event.key == "Backspace") {
-  //   event.innerHTML = event.innerHTML.slice(0, -10);
-  // }
 });
 
 document.body.addEventListener("keyup", function (event) {
@@ -183,3 +190,11 @@ document.body.addEventListener("keyup", function (event) {
     }
   }
 });
+
+//Virtual keyboard activation with external mouse
+for (let x of button) {
+  x.addEventListener("mousedown", function () {
+    textarea.className = 'focus';
+    textarea.innerHTML += x.innerHTML;
+  });
+}

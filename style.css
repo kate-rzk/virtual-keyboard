@@ -19,7 +19,8 @@ textarea {
   font-size: 18px;
 }
 
-textarea:focus {
+textarea:focus,
+.focus {
   border: 1px solid #f09bc2;
   outline: 2px solid #c25a8a;
 }
