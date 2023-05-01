@@ -49,8 +49,8 @@ function createElementsPage() {
 createElementsPage();
 
 //Keyboard
-const symbolsRow1 = ["'", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "-", "=", "Backspace"];
-const symbolsRow2 = [
+let symbolsRow1 = ["'", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "-", "=", "Backspace"];
+let symbolsRow2 = [
   "Tab",
   "q",
   "w",
@@ -67,7 +67,7 @@ const symbolsRow2 = [
   "\\",
   "Del",
 ];
-const symbolsRow3 = [
+let symbolsRow3 = [
   "CapsLock",
   "a",
   "s",
@@ -82,7 +82,7 @@ const symbolsRow3 = [
   "'",
   "Enter",
 ];
-const symbolsRow4 = [
+let symbolsRow4 = [
   "Shift",
   "z",
   "x",
@@ -97,7 +97,7 @@ const symbolsRow4 = [
   "&uArr;",
   "Shift",
 ];
-const symbolsRow5 = [
+let symbolsRow5 = [
   "Ctrl",
   "Win",
   "Alt",
@@ -161,16 +161,13 @@ init();
 const button = document.querySelectorAll(".button");
 
 document.addEventListener("keydown", function (event) {
+  textarea.focus();
   for (let i = 0; i < button.length; i++) {
     if (button[i].innerHTML == event.key) {
       button[i].classList.add("active");
       button[i].classList.remove("button-color");
     }
   }
-  textarea.innerHTML += event.key;
-  // if (event.key == "Backspace") {
-  //   event.innerHTML = event.innerHTML.slice(0, -10);
-  // }
 });
 
 document.body.addEventListener("keyup", function (event) {
@@ -182,4 +179,30 @@ document.body.addEventListener("keyup", function (event) {
       }
     }
   }
+});
+
+//Virtual keyboard activation with external mouse
+button.forEach(function (element) {
+  element.addEventListener("mousedown", function () {
+    textarea.className = "focus";
+    if (element.textContent.length == 1) {
+      textarea.innerHTML += element.innerHTML;
+    }
+    switch (element.textContent) {
+      case "Backspace":
+        textarea.innerHTML = textarea.innerHTML.slice(0, -1);
+        break;
+      case "Tab":
+        textarea.innerHTML += "    ";
+        break;
+      case "CapsLock":
+        button.forEach((el) => {
+          if (el.innerHTML.length == 1 && typeof el.innerHTML == "string") {
+            el.innerHTML.toUpperCase();
+            console.log(el.innerHTML.toUpperCase());
+          }
+        });
+        break;
+    }
+  });
 });
