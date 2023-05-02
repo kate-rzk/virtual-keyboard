@@ -185,9 +185,6 @@ document.body.addEventListener("keyup", function (event) {
 button.forEach(function (element) {
   element.addEventListener("mousedown", function () {
     textarea.className = "focus";
-    if (element.textContent.length == 1) {
-      textarea.innerHTML += element.innerHTML;
-    }
     switch (element.textContent) {
       case "Backspace":
         textarea.innerHTML = textarea.innerHTML.slice(0, -1);
@@ -197,12 +194,27 @@ button.forEach(function (element) {
         break;
       case "CapsLock":
         button.forEach((el) => {
-          if (el.innerHTML.length == 1 && typeof el.innerHTML == "string") {
-            el.innerHTML.toUpperCase();
-            console.log(el.innerHTML.toUpperCase());
+          if (el.innerHTML.length == 1) {
+            el.classList.toggle("button-transform");
           }
         });
         break;
+      case "Del":
+        textarea.innerHTML = textarea.innerHTML.slice(
+          0,
+          textarea.innerHTML.length - 1
+        );
+        break;
+      case "Enter":
+        textarea.innerHTML += "\n";
+        break;
+    }
+    if (element.textContent.length == 1) {
+      if (element.matches('button[class$="button-transform"]')) {
+        textarea.innerHTML += element.innerHTML.toUpperCase();
+      } else {
+        textarea.innerHTML += element.innerHTML;
+      }
     }
   });
 });
