@@ -13,7 +13,7 @@ const row5 = document.createElement("div");
 const textSystem = document.createElement("p");
 const textSwitch = document.createElement("p");
 
-function createElementsPage() {
+let createElementsPage = function () {
   title.textContent = "RSS Виртуальная клавиатура";
   textSystem.textContent = "Клавиатура создана в операционной системе Linux";
   textSwitch.textContent =
@@ -44,7 +44,7 @@ function createElementsPage() {
   article.appendChild(textSwitch);
 
   return article;
-}
+};
 
 createElementsPage();
 
@@ -109,7 +109,7 @@ let symbolsRow5 = [
   "Ctrl",
 ];
 
-function init() {
+let init = function () {
   let line1 = "";
   let line2 = "";
   let line3 = "";
@@ -153,14 +153,14 @@ function init() {
   row4.childNodes[row4.childNodes.length - 2].className =
     "button button-color button-special";
   row5.childNodes[3].className = "button key-row5-space";
-}
+};
 
 init();
 
 //Virtual keyboard activation with external keyboard
 const button = document.querySelectorAll(".button");
 
-document.addEventListener("keydown", function (event) {
+let printKeydownOnKeyboard = function (event) {
   textarea.focus();
   for (let i = 0; i < button.length; i++) {
     if (button[i].innerHTML == event.key) {
@@ -168,9 +168,11 @@ document.addEventListener("keydown", function (event) {
       button[i].classList.remove("button-color");
     }
   }
-});
+};
 
-document.body.addEventListener("keyup", function (event) {
+document.addEventListener("keydown", printKeydownOnKeyboard);
+
+let printKeyupOnKeyboard = function (event) {
   for (let j = 0; j < button.length; j++) {
     if (button[j].innerHTML == event.key) {
       button[j].classList.remove("active");
@@ -179,11 +181,13 @@ document.body.addEventListener("keyup", function (event) {
       }
     }
   }
-});
+};
+
+document.addEventListener("keyup", printKeyupOnKeyboard);
 
 //Virtual keyboard activation with external mouse
 button.forEach(function (element) {
-  element.addEventListener("mousedown", function () {
+  let printKeyMouse = function () {
     textarea.className = "focus";
     switch (element.textContent) {
       case "Backspace":
@@ -216,5 +220,8 @@ button.forEach(function (element) {
         textarea.innerHTML += element.innerHTML;
       }
     }
-  });
+    console.log(textarea.innerHTML);
+  };
+
+  element.addEventListener("click", printKeyMouse);
 });
