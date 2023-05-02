@@ -99,3 +99,7 @@ textarea:focus,
 .button-color {
   background: #f482c0;
 }
+
+.button-transform {
+  text-transform: uppercase;
+}
