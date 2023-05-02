@@ -191,10 +191,10 @@ button.forEach(function (element) {
     textarea.className = "focus";
     switch (element.textContent) {
       case "Backspace":
-        textarea.innerHTML = textarea.innerHTML.slice(0, -1);
+        textarea.value = textarea.innerHTML.slice(0, -1);
         break;
       case "Tab":
-        textarea.innerHTML += "    ";
+        textarea.value += "    ";
         break;
       case "CapsLock":
         button.forEach((el) => {
@@ -204,23 +204,19 @@ button.forEach(function (element) {
         });
         break;
       case "Del":
-        textarea.innerHTML = textarea.innerHTML.slice(
-          0,
-          textarea.innerHTML.length - 1
-        );
+        textarea.value = textarea.innerHTML.slice(0, textarea.value.length - 1);
         break;
       case "Enter":
-        textarea.innerHTML += "\n";
+        textarea.value += "\n";
         break;
     }
     if (element.textContent.length == 1) {
       if (element.matches('button[class$="button-transform"]')) {
-        textarea.innerHTML += element.innerHTML.toUpperCase();
+        textarea.value += element.innerHTML.toUpperCase();
       } else {
-        textarea.innerHTML += element.innerHTML;
+        textarea.value += element.innerHTML;
       }
     }
-    console.log(textarea.innerHTML);
   };
 
   element.addEventListener("click", printKeyMouse);
