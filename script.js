@@ -169,7 +169,6 @@ init();
 
 //Virtual keyboard activation with external keyboard
 const button = document.querySelectorAll(".button");
-console.log(button.value)
 
 let printKeydownOnKeyboard = function (event) {
   textarea.focus();
@@ -191,9 +190,12 @@ let printKeydownOnKeyboard = function (event) {
       (button[i].matches('button[id$="AltRight"]') &&
         event.code == "AltRight") ||
       (button[i].matches('button[id$="ArrowUp"]') && event.key == "ArrowUp") ||
-      (button[i].matches('button[id$="ArrowDown"]') && event.key == "ArrowDown") ||
-      (button[i].matches('button[id$="ArrowLeft"]') && event.key == "ArrowLeft") ||
-      (button[i].matches('button[id$="ArrowRight"]') && event.key == "ArrowRight")
+      (button[i].matches('button[id$="ArrowDown"]') &&
+        event.key == "ArrowDown") ||
+      (button[i].matches('button[id$="ArrowLeft"]') &&
+        event.key == "ArrowLeft") ||
+      (button[i].matches('button[id$="ArrowRight"]') &&
+        event.key == "ArrowRight")
     ) {
       button[i].classList.add("active");
       button[i].classList.remove("button-color");
@@ -217,11 +219,15 @@ let printKeyupOnKeyboard = function (event) {
       (button[j].matches('button[id$="ControlRight"]') &&
         event.code == "ControlRight") ||
       (button[j].matches('button[id$="AltLeft"]') && event.code == "AltLeft") ||
-      (button[j].matches('button[id$="AltRight"]') && event.code == "AltRight") ||
+      (button[j].matches('button[id$="AltRight"]') &&
+        event.code == "AltRight") ||
       (button[j].matches('button[id$="ArrowUp"]') && event.key == "ArrowUp") ||
-      (button[j].matches('button[id$="ArrowDown"]') && event.key == "ArrowDown") ||
-      (button[j].matches('button[id$="ArrowLeft"]') && event.key == "ArrowLeft") ||
-      (button[j].matches('button[id$="ArrowRight"]') && event.key == "ArrowRight")
+      (button[j].matches('button[id$="ArrowDown"]') &&
+        event.key == "ArrowDown") ||
+      (button[j].matches('button[id$="ArrowLeft"]') &&
+        event.key == "ArrowLeft") ||
+      (button[j].matches('button[id$="ArrowRight"]') &&
+        event.key == "ArrowRight")
     ) {
       button[j].classList.remove("active");
       if (
@@ -249,12 +255,19 @@ button.forEach(function (element) {
     textarea.className = "focus";
     switch (element.textContent) {
       case "Backspace":
-        textarea.value = textarea.innerHTML.slice(0, -1);
+        textarea.value = textarea.value.slice(0, -1);
         break;
       case "Tab":
         textarea.value += "    ";
         break;
       case "CapsLock":
+        button.forEach((el) => {
+          if (el.innerHTML.length == 1) {
+            el.classList.toggle("button-transform");
+          }
+        });
+        break;
+      case "Shift":
         button.forEach((el) => {
           if (el.innerHTML.length == 1) {
             el.classList.toggle("button-transform");
