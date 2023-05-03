@@ -49,7 +49,7 @@ let createElementsPage = function () {
 createElementsPage();
 
 //Keyboard
-let symbolsRow1 = ["'", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "-", "=", "Backspace"];
+let symbolsRow1 = ["`", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "-", "=", "Backspace"];
 let symbolsRow2 = [
   "Tab",
   "q",
@@ -148,8 +148,10 @@ let init = function () {
     "button key-row3-4-last button-color button-special";
   row4.firstChild.className =
     "button key-row3-4-first button-color button-special";
+  row4.firstChild.id = "ShiftLeft";
   row4.lastChild.className =
     "button key-row3-4-last button-color button-special";
+  row4.lastChild.id = "ShiftRight";
   row4.childNodes[row4.childNodes.length - 2].className =
     "button button-color button-special";
   row5.childNodes[3].className = "button key-row5-space";
@@ -163,7 +165,14 @@ const button = document.querySelectorAll(".button");
 let printKeydownOnKeyboard = function (event) {
   textarea.focus();
   for (let i = 0; i < button.length; i++) {
-    if (button[i].innerHTML == event.key) {
+    if (
+      (button[i].innerHTML == event.key && button[i].innerHTML !== "Shift") ||
+      (button[i].innerHTML == "Del" && event.key == "Delete") ||
+      (button[i].matches('button[id$="ShiftLeft"]') &&
+        event.code == "ShiftLeft") ||
+      (button[i].matches('button[id$="ShiftRight"]') &&
+        event.code == "ShiftRight")
+    ) {
       button[i].classList.add("active");
       button[i].classList.remove("button-color");
     }
@@ -174,7 +183,14 @@ document.addEventListener("keydown", printKeydownOnKeyboard);
 
 let printKeyupOnKeyboard = function (event) {
   for (let j = 0; j < button.length; j++) {
-    if (button[j].innerHTML == event.key) {
+    if (
+      (button[j].innerHTML == event.key && button[j].innerHTML !== "Shift") ||
+      (button[j].innerHTML == "Del" && event.key == "Delete") ||
+      (button[j].matches('button[id$="ShiftLeft"]') &&
+        event.code == "ShiftLeft") ||
+      (button[j].matches('button[id$="ShiftRight"]') &&
+        event.code == "ShiftRight")
+    ) {
       button[j].classList.remove("active");
       if (button[j].matches('button[class$="button-special"]')) {
         button[j].classList.add("button-color");
