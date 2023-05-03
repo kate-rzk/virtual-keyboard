@@ -152,26 +152,48 @@ let init = function () {
   row4.lastChild.className =
     "button key-row3-4-last button-color button-special";
   row4.lastChild.id = "ShiftRight";
+  row4.childNodes[row4.childNodes.length - 2].id = "ArrowUp";
   row4.childNodes[row4.childNodes.length - 2].className =
     "button button-color button-special";
   row5.childNodes[3].className = "button key-row5-space";
+  row5.childNodes[2].id = "AltLeft";
+  row5.childNodes[4].id = "AltRight";
+  row5.childNodes[5].id = "ArrowLeft";
+  row5.childNodes[6].id = "ArrowDown";
+  row5.childNodes[7].id = "ArrowRight";
+  row5.firstChild.id = "ControlLeft";
+  row5.lastChild.id = "ControlRight";
 };
 
 init();
 
 //Virtual keyboard activation with external keyboard
 const button = document.querySelectorAll(".button");
+console.log(button.value)
 
 let printKeydownOnKeyboard = function (event) {
   textarea.focus();
   for (let i = 0; i < button.length; i++) {
     if (
-      (button[i].innerHTML == event.key && button[i].innerHTML !== "Shift") ||
+      (button[i].innerHTML == event.key &&
+        button[i].innerHTML !== "Shift" &&
+        button[i].innerHTML !== "Alt") ||
       (button[i].innerHTML == "Del" && event.key == "Delete") ||
       (button[i].matches('button[id$="ShiftLeft"]') &&
         event.code == "ShiftLeft") ||
       (button[i].matches('button[id$="ShiftRight"]') &&
-        event.code == "ShiftRight")
+        event.code == "ShiftRight") ||
+      (button[i].matches('button[id$="ControlLeft"]') &&
+        event.code == "ControlLeft") ||
+      (button[i].matches('button[id$="ControlRight"]') &&
+        event.code == "ControlRight") ||
+      (button[i].matches('button[id$="AltLeft"]') && event.code == "AltLeft") ||
+      (button[i].matches('button[id$="AltRight"]') &&
+        event.code == "AltRight") ||
+      (button[i].matches('button[id$="ArrowUp"]') && event.key == "ArrowUp") ||
+      (button[i].matches('button[id$="ArrowDown"]') && event.key == "ArrowDown") ||
+      (button[i].matches('button[id$="ArrowLeft"]') && event.key == "ArrowLeft") ||
+      (button[i].matches('button[id$="ArrowRight"]') && event.key == "ArrowRight")
     ) {
       button[i].classList.add("active");
       button[i].classList.remove("button-color");
@@ -189,10 +211,30 @@ let printKeyupOnKeyboard = function (event) {
       (button[j].matches('button[id$="ShiftLeft"]') &&
         event.code == "ShiftLeft") ||
       (button[j].matches('button[id$="ShiftRight"]') &&
-        event.code == "ShiftRight")
+        event.code == "ShiftRight") ||
+      (button[j].matches('button[id$="ControlLeft"]') &&
+        event.code == "ControlLeft") ||
+      (button[j].matches('button[id$="ControlRight"]') &&
+        event.code == "ControlRight") ||
+      (button[j].matches('button[id$="AltLeft"]') && event.code == "AltLeft") ||
+      (button[j].matches('button[id$="AltRight"]') && event.code == "AltRight") ||
+      (button[j].matches('button[id$="ArrowUp"]') && event.key == "ArrowUp") ||
+      (button[j].matches('button[id$="ArrowDown"]') && event.key == "ArrowDown") ||
+      (button[j].matches('button[id$="ArrowLeft"]') && event.key == "ArrowLeft") ||
+      (button[j].matches('button[id$="ArrowRight"]') && event.key == "ArrowRight")
     ) {
       button[j].classList.remove("active");
-      if (button[j].matches('button[class$="button-special"]')) {
+      if (
+        button[j].matches('button[class$="button-special"]') ||
+        button[j].matches('button[id$="ControlLeft"]') ||
+        button[j].matches('button[id$="ControlRight"]') ||
+        button[j].matches('button[id$="AltLeft"]') ||
+        button[j].matches('button[id$="AltRight"]') ||
+        button[j].matches('button[id$="ArrowUp"]') ||
+        button[j].matches('button[id$="ArrowDown"]') ||
+        button[j].matches('button[id$="ArrowLeft"]') ||
+        button[j].matches('button[id$="ArrowRight"]')
+      ) {
         button[j].classList.add("button-color");
       }
     }
